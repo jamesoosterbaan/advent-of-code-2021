@@ -36,11 +36,11 @@ fun singleMeasurementWindowIncrease(depths: List<Int>): Int {
  * Given a list of depths, calculate the three-sliding-window sums of the depths.
  */
 fun calculateThreeWindowSlidingDistances(depths: List<Int>): List<Int> {
-    var windows: List<Int> = mutableListOf()
+    val windows: MutableList<Int> = mutableListOf()
 
     for (i in 0..depths.size-3) {
         // No idea why it says "add" isn't defined...
-        windows = windows.plus(depths[i] + depths[i+1] + depths[i+2])
+        windows.add(depths[i] + depths[i+1] + depths[i+2])
     }
 
     return windows
