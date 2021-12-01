@@ -6,7 +6,7 @@ fun main(args: Array<String>) {
         return
     }
     val fileName = args[0]
-    val depths = File("../resources/${fileName}").readLines().map{s -> s.toInt()}
+    val depths = File("resources/${fileName}").readLines().map{s -> s.toInt()}
 
     part1(depths)
     part2(depths)
