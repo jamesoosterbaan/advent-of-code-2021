@@ -39,7 +39,6 @@ fun calculateThreeWindowSlidingDistances(depths: List<Int>): List<Int> {
     val windows: MutableList<Int> = mutableListOf()
 
     for (i in 0..depths.size-3) {
-        // No idea why it says "add" isn't defined...
         windows.add(depths[i] + depths[i+1] + depths[i+2])
     }
 

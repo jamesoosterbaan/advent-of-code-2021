@@ -2,7 +2,7 @@
 
 https://adventofcode.com/2021
 
-To compile a days solution, and then execute it, run the following commands:
+To compile a days' solution, and then execute it, run the following commands:
 
 ```
 > export NUMBER=${DAY_TO_EXECUTE}
