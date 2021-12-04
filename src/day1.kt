@@ -8,15 +8,15 @@ fun main(args: Array<String>) {
     val fileName = args[0]
     val depths = File("resources/${fileName}").readLines().map{s -> s.toInt()}
 
-    part1(depths)
-    part2(depths)
+    day1part1(depths)
+    day1part2(depths)
 }
 
-fun part1(depths: List<Int>) {
+fun day1part1(depths: List<Int>) {
     println("The depth of the floor increased ${singleMeasurementWindowIncrease(depths)} times.")
 }
 
-fun part2(depths: List<Int>) {
+fun day1part2(depths: List<Int>) {
     val slidingWindows = calculateThreeWindowSlidingDistances(depths)
     println("The three-window-sliding measurements increased ${singleMeasurementWindowIncrease(slidingWindows)} times.")
 }

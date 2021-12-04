@@ -10,17 +10,17 @@ fun main(args: Array<String>) {
     val powerLevels: List<String> = File("resources/${fileName}")
         .readLines()
 
-    part1(powerLevels)
-    part2(powerLevels)
+    day3part1(powerLevels)
+    day3part2(powerLevels)
 }
 
-fun part1(powerLevels: List<String>) {
+fun day3part1(powerLevels: List<String>) {
     println("\n--- Part 1 ---\n")
 
     val gammaPowerLevel: MutableList<Int> = mutableListOf()
     val epsilonPowerLevel: MutableList<Int> = mutableListOf()
-    for (index in 0..powerLevels[0].length-1) {
-        val bits: List<Int> = powerLevels.map{it -> Character.getNumericValue(it[index])}
+    for (index in 0 until powerLevels[0].length) {
+        val bits: List<Int> = powerLevels.map{ Character.getNumericValue(it[index]) }
         val mostCommonBit = getMostCommonBit(bits, mostCommonlyOccurring = true)
 
         if (mostCommonBit == 0) {
@@ -40,7 +40,7 @@ fun part1(powerLevels: List<String>) {
     println("Resulting power level is: ${gammaResult*epsilonResult}")
 }
 
-fun part2(powerLevels: List<String>) {
+fun day3part2(powerLevels: List<String>) {
     println("\n--- Part 2 ---\n")
 
     val oxygenGeneratorRating = getOxygenGeneratorRating(powerLevels)
@@ -56,7 +56,7 @@ fun part2(powerLevels: List<String>) {
  *
  * This is accomplished through the following process:
  *  - Starting at index 0, find the most common bit in all the numbers.
- *  - Filter out all of the numbers that do not have this bit at the index.
+ *  - Filter out all the numbers that do not have this bit at the index.
  *  - If there are equal numbers of 0's and 1's, act as if the 1 was most common.
  *  - Increment the index.
  *
@@ -70,7 +70,7 @@ fun getOxygenGeneratorRating(powerLevels: List<String>): Int {
 
     // Loop through until we only have a single item remaining.
     while (result.size != 1) {
-        val bits: List<Int> = result.map{it -> Character.getNumericValue(it[index])}
+        val bits: List<Int> = result.map{ Character.getNumericValue(it[index]) }
         val commonBit = getMostCommonBit(input = bits, mostCommonlyOccurring = true, default = 1)
         result = result.filter{Character.getNumericValue(it[index]) == commonBit}
         index++
@@ -84,7 +84,7 @@ fun getOxygenGeneratorRating(powerLevels: List<String>): Int {
  *
  * This is accomplished through the following process:
  *  - Starting at index 0, find the least common bit in all the numbers.
- *  - Filter out all of the numbers that do not have this bit at the index.
+ *  - Filter out all the numbers that do not have this bit at the index.
  *  - If there are equal numbers of 0's and 1's, act as if the 0 was most common.
  *  - Increment the index.
  *
@@ -98,7 +98,7 @@ fun getCO2ScrubberRating(powerLevels: List<String>): Int {
 
     // Loop through until we only have a single item remaining.
     while (result.size != 1) {
-        val bits: List<Int> = result.map{it -> Character.getNumericValue(it[index])}
+        val bits: List<Int> = result.map{ Character.getNumericValue(it[index]) }
         val commonBit = getMostCommonBit(input = bits, mostCommonlyOccurring = false, default = 0)
         result = result.filter{Character.getNumericValue(it[index]) == commonBit}
         index++
@@ -108,10 +108,10 @@ fun getCO2ScrubberRating(powerLevels: List<String>): Int {
 }
 
 /**
- * Given an input of a [List<Int>], return the most commonly-occurring (or least commonly-occurring) [Int]. If the number of occurences are
+ * Given an input of a [List<Int>], return the most commonly-occurring (or least commonly-occurring) [Int]. If the number of occurrences are
  * equal, return a default if supplied.
  *
- * @param input the [List<Int>] to seach through for the most (or least) common bit
+ * @param input the [List<Int>] to search through for the most (or least) common bit
  * @param mostCommonlyOccurring a [Boolean] value indicating whether we should look for the most or least common bit
  * @param default a default [Int] to use if there are equals numbers of each bit
  * @return the most (or least) commonly occurring bit
@@ -130,7 +130,7 @@ fun getMostCommonBit(
     else if (numOnes > numZeroes)
         if (mostCommonlyOccurring) 1 else 0
     else
-        default?.toInt() ?: throw java.lang.IllegalStateException("Occurences are equal and no default was suppplied.")
+        default ?: throw java.lang.IllegalStateException("Occurrences are equal and no default was supplied.")
 }
 
 /**

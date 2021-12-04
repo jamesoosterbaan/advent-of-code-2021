@@ -8,32 +8,36 @@ fun main(args: Array<String>) {
     val fileName = args[0]
     val instructions: List<Instruction> = File("resources/${fileName}")
         .readLines()
-        .map{line -> line.split(" ")}
-        .map{it -> Instruction(it[0], it[1].toInt())}
+        .map{ line -> line.split(" ") }
+        .map{ Instruction(it[0], it[1].toInt()) }
 
-    part1(instructions)
-    part2(instructions)
+    day2part1(instructions)
+    day2part2(instructions)
 }
 
-fun part1(instructions: List<Instruction>) {
-    var currentPosition = Position(0,0)
+fun day2part1(instructions: List<Instruction>) {
+    val currentPosition = Position(0,0)
     for (instruction in instructions) {
-        if (instruction.direction == "forward") currentPosition.increaseHorizontal(instruction.distance)
-        else if (instruction.direction == "down") currentPosition.increaseDepth(instruction.distance)
-        else if (instruction.direction == "up") currentPosition.decreaseDepth(instruction.distance)
-        else throw java.lang.IllegalArgumentException("Unknown direction '${instruction.direction}'.")
+        when (instruction.direction) {
+            "forward" -> currentPosition.increaseHorizontal(instruction.distance)
+            "down" -> currentPosition.increaseDepth(instruction.distance)
+            "up" -> currentPosition.decreaseDepth(instruction.distance)
+            else -> throw java.lang.IllegalArgumentException("Unknown direction '${instruction.direction}'.")
+        }
     }
     println("Final position is: $currentPosition.")
     println("Product of horizontal and depth is: ${currentPosition.getProduct()}.")
 }
 
-fun part2(instructions: List<Instruction>) {
-    var currentPosition = AimAdjustedPosition(0,0, 0)
+fun day2part2(instructions: List<Instruction>) {
+    val currentPosition = AimAdjustedPosition(0,0, 0)
     for (instruction in instructions) {
-        if (instruction.direction == "forward") currentPosition.increaseHorizontal(instruction.distance)
-        else if (instruction.direction == "down") currentPosition.increaseAim(instruction.distance)
-        else if (instruction.direction == "up") currentPosition.decreaseAim(instruction.distance)
-        else throw java.lang.IllegalArgumentException("Unknown direction '${instruction.direction}'.")
+        when (instruction.direction) {
+            "forward" -> currentPosition.increaseHorizontal(instruction.distance)
+            "down" -> currentPosition.increaseAim(instruction.distance)
+            "up" -> currentPosition.decreaseAim(instruction.distance)
+            else -> throw java.lang.IllegalArgumentException("Unknown direction '${instruction.direction}'.")
+        }
     }
     println("Final aim-adjusted position is: $currentPosition.")
     println("Product of horizontal and depth is: ${currentPosition.getProduct()}.")
@@ -45,16 +49,11 @@ data class Instruction(val direction: String, val distance: Int)
  * Class to track the position of the submarine, using only horizontal and depth modifiers.
  */
 open class Position(
-    private val initialHorizontal: Int,
-    private val initialDepth: Int
+    initialHorizontal: Int,
+    initialDepth: Int
 ) {
-    private var horizontal: Int
-    private var depth: Int
-
-    init {
-        horizontal = initialHorizontal
-        depth = initialDepth
-    }
+    private var horizontal: Int = initialHorizontal
+    private var depth: Int = initialDepth
 
     open fun increaseHorizontal(distance: Int) {
         this.horizontal += distance
@@ -93,11 +92,7 @@ class AimAdjustedPosition(
     private val initialDepth: Int,
     private val initialAim: Int
 ): Position(initialHorizontal, initialDepth) {
-    private var aim: Int
-
-    init {
-        aim = initialAim
-    }
+    private var aim: Int = initialAim
 
     override fun increaseHorizontal(distance: Int) {
         super.increaseHorizontal(distance)
