@@ -4,8 +4,14 @@ https://adventofcode.com/2021
 
 To compile a days' solution, and then execute it, run the following commands:
 
+To recompile the `.jar`:
+
 ```
-> export NUMBER=${DAY_TO_EXECUTE}
-> kotlinc src/day${NUMBER}.kt -include-runtime -d day${NUMBER}.jar
-> java -jar day${NUMBER}.jar "day${NUMBER}.txt"
+> kotlinc src/**/*.kt -include-runtime -d AdventOfCode2021.jar
+```
+
+To run the program for a day:
+
+```
+> java -jar AdventOfCode2021.jar ${DAY_TO_RUN}
 ```
